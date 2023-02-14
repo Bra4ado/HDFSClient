@@ -25,12 +25,27 @@ public class HdfsClient {
     }
 
     @Test
-    public void testUpload() throws IOException, URISyntaxException, InterruptedException {
+    public void testUpload() throws IOException {
 
-        fs.copyFromLocalFile()
+        //1, 是否删除原数据
+        //2，是否能覆盖Hadoop上的老数据
+        //3，本机文件的路径
+        //4，Hadoop上的路径
+        fs.copyFromLocalFile(true,true,new Path("C:/Users/lenovo/Documents/sunwukong.txt"),new Path("/xiyou/huaguoshan"));
+        //配置优先级 hads-default.xml<hdfs-site.xml<resource中的配置<new Configuration()中的设置
 
     }
+    @Test
+    public void testDownload() throws IOException {
 
+        //1, 是否删除原数据
+        //2，是否能覆盖Hadoop上的老数据
+        //3，本机文件的路径
+        //4，Hadoop上的路径
+        fs.copyToLocalFile(true,new Path("/xiyou/huaguoshan/sunwukong.txt"),new Path("C:/Users/lenovo/Documents"),false);
+        //配置优先级 hads-default.xml<hdfs-site.xml<resource中的配置<new Configuration()中的设置
+
+    }
     @Before
     public void init() throws URISyntaxException, IOException, InterruptedException {
         // 1 获取文件系统
